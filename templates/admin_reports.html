@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block workspace_title %}Reports Center{% endblock %}
+{% block workspace_subtitle %}Registration and finance exports{% endblock %}
+{% block content %}
+<div class="page-header dashboard-heading">
+  <div><h2>Reports</h2><p>Export registration summaries and review course demand.</p></div>
+  <div><a class="btn btn-outline-success" href="{% url 'registrations_excel' %}">Export Excel</a> <a class="btn btn-outline-primary" href="{% url 'registrations_csv' %}">Export CSV</a> <a class="btn btn-outline-danger" href="{% url 'registrations_pdf' %}">Export PDF</a></div>
+</div>
+<section class="meter-grid">
+  <div class="stat-card"><span>Students</span><strong>{{ students_count }}</strong></div>
+  <div class="stat-card"><span>Registrations</span><strong>{{ registrations_count }}</strong></div>
+  <div class="stat-card"><span>Verified Payments</span><strong>{{ payments_total }}</strong></div>
+</section>
+<div class="panel"><div class="panel-title"><h4>Per Course</h4><span>Current semester</span></div><table class="table app-table">{% for course in course_counts %}<tr><td>{{ course.code }}</td><td>{{ course.title }}</td><td><span class="status-pill">{{ course.registrations.count }} registrations</span></td></tr>{% empty %}<tr><td>No courses yet.</td></tr>{% endfor %}</table></div>
+{% endblock %}

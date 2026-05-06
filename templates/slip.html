@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="panel">
+  <h2>Registration Slip</h2>
+  <p>The official slip is generated as a PDF with a verification QR code.</p>
+  <a class="btn btn-primary" href="{% url 'registration_slip' %}">Download PDF Slip</a>
+</div>
+{% endblock %}

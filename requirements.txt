@@ -1,0 +1,4 @@
+Django==5.2.14
+qrcode[pil]
+reportlab
+openpyxl

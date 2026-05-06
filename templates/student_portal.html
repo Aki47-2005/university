@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block workspace_title %}Student Wellness{% endblock %}
+{% block workspace_subtitle %}Academic profile and registration status{% endblock %}
+{% block content %}
+<div class="page-header dashboard-heading">
+  <div>
+    <h2>Student Portal</h2>
+    <p>Track course registration, clearance, and academic progress.</p>
+  </div>
+  <a class="btn btn-primary" href="{% url 'register_course' %}">Register Courses</a>
+</div>
+{% if student %}
+  <section class="student-hero panel">
+    <div>
+      <span class="avatar-xl">{{ student.full_name|slice:":1" }}</span>
+    </div>
+    <div>
+      <h3>{{ student.full_name }}</h3>
+      <p>{{ student.reg_number }} | {{ student.programme }} | Year {{ student.year_of_study }}</p>
+      {% if student.clearance.is_cleared %}<span class="role-pill">Cleared</span>{% else %}<span class="role-pill">Pending Clearance</span>{% endif %}
+    </div>
+    <div class="student-score">
+      <span>GPA</span>
+      <strong>{{ gpa|default:"N/A" }}</strong>
+    </div>
+  </section>
+  <section class="activity-grid">
+    <div class="panel">
+      <div class="panel-title"><h4>Registered Courses</h4><a href="{% url 'registration_slip' %}">Download slip</a></div>
+      <table class="table app-table">{% for registration in registrations %}<tr><td>{{ registration.course.code }}</td><td>{{ registration.course.title }}</td><td>{{ registration.semester }}</td></tr>{% empty %}<tr><td>No courses registered.</td></tr>{% endfor %}</table>
+    </div>
+    <div class="panel meter-panel">
+      <h4>Academic Health</h4>
+      <div class="gauge gauge-green"><span></span></div>
+    </div>
+  </section>
+{% else %}
+  <div class="alert alert-warning">No student profile has been linked to this account.</div>
+{% endif %}
+{% endblock %}

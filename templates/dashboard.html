@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block workspace_title %}B360Well Program{% endblock %}
+{% block workspace_subtitle %}University operations overview{% endblock %}
+{% block content %}
+<div class="page-header dashboard-heading">
+  <div>
+    <h2>Dashboard</h2>
+    <p>Monitor registrations, finance, records, and recent system activity.</p>
+  </div>
+  <span class="role-pill">{{ user.get_role_display }}</span>
+</div>
+
+<section class="analytics-grid">
+  <div class="panel login-analytics">
+    <div class="panel-title">
+      <div>
+        <h4>Employee Logins</h4>
+        <strong>8.9</strong> <small class="trend-up">+24%</small>
+      </div>
+      <span>Last month</span>
+    </div>
+    <div class="bar-chart" aria-label="Monthly activity chart">
+      <div style="--a:80%;--b:48%"><span>Jan</span></div>
+      <div style="--a:58%;--b:42%"><span>Feb</span></div>
+      <div style="--a:95%;--b:62%"><span>Mar</span></div>
+      <div style="--a:80%;--b:48%"><span>Apr</span></div>
+      <div style="--a:58%;--b:40%"><span>May</span></div>
+      <div style="--a:96%;--b:63%"><span>Jun</span></div>
+      <div style="--a:80%;--b:49%"><span>Jul</span></div>
+      <div style="--a:58%;--b:39%"><span>Aug</span></div>
+      <div style="--a:95%;--b:60%"><span>Sep</span></div>
+    </div>
+  </div>
+
+  <div class="panel license-panel">
+    <div class="panel-title">
+      <h4>System Snapshot</h4>
+      <span>Live</span>
+    </div>
+    <div class="mini-stats">
+      <div><strong>{{ total_students }}</strong><span>Students</span></div>
+      <div><strong>{{ total_registrations }}</strong><span>Registered</span></div>
+      <div><strong>{{ total_payments }}</strong><span>Payments</span></div>
+    </div>
+    <div class="donut-chart">
+      <span>85%</span>
+    </div>
+    <div class="legend-list">
+      <span><i class="legend-hot"></i>Allocated Records</span>
+      <span><i class="legend-warm"></i>Pending Reviews</span>
+    </div>
+  </div>
+</section>
+
+<div class="section-title">
+  <h3>Company View</h3>
+  <div class="filter-tabs"><span>Today</span><span>Meter chart</span></div>
+</div>
+
+<section class="meter-grid">
+  <div class="panel meter-panel">
+    <h4>Avg. Registration Index <small>5.09</small></h4>
+    <div class="gauge"><span></span></div>
+  </div>
+  <div class="panel meter-panel">
+    <h4>Avg. Academic Health</h4>
+    <div class="gauge gauge-green"><span></span></div>
+  </div>
+  <div class="panel meter-panel">
+    <h4>Avg. Clearance Score</h4>
+    <div class="gauge"><span></span></div>
+  </div>
+</section>
+
+<section class="activity-grid">
+  <div class="panel">
+    <div class="panel-title"><h4>Recent Audit Logs</h4><a href="{% url 'audit_logs' %}">View all</a></div>
+    <table class="table app-table">
+      <tbody>{% for log in recent_logs %}<tr><td>{{ log.timestamp|date:"M d, H:i" }}</td><td>{{ log.user }}</td><td>{{ log.action }}</td></tr>{% empty %}<tr><td>No logs yet.</td></tr>{% endfor %}</tbody>
+    </table>
+  </div>
+  <div class="panel">
+    <div class="panel-title"><h4>Recent Payments</h4><a href="{% url 'payment_list' %}">Manage</a></div>
+    <table class="table app-table">
+      <tbody>{% for payment in recent_payments %}<tr><td>{{ payment.student.reg_number }}</td><td>{{ payment.amount }}</td><td><span class="status-pill">{{ payment.status }}</span></td></tr>{% empty %}<tr><td>No payments yet.</td></tr>{% endfor %}</tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

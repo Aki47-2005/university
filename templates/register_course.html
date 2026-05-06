@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block workspace_title %}Course Registration{% endblock %}
+{% block workspace_subtitle %}Semester enrollment workspace{% endblock %}
+{% block content %}
+<div class="page-header dashboard-heading">
+  <div><h2>Register Courses</h2><p>Cleared students can enroll while timetable clashes are blocked.</p></div>
+  <a class="btn btn-outline-primary" href="{% url 'registration_slip' %}">Download Slip</a>
+</div>
+<section class="activity-grid">
+  <form method="post" class="panel form-grid">{% csrf_token %}<div class="panel-title"><h4>Available Courses</h4><span>Semester registration</span></div>{{ form.as_p }}<button class="btn btn-primary">Register</button></form>
+  <div class="panel"><div class="panel-title"><h4>My Registrations</h4><span>Current records</span></div><table class="table app-table">{% for registration in registrations %}<tr><td>{{ registration.course.code }}</td><td>{{ registration.course.title }}</td><td>{{ registration.semester }}</td></tr>{% empty %}<tr><td>No registrations yet.</td></tr>{% endfor %}</table></div>
+</section>
+{% endblock %}

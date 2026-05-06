@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-header"><h2>Payments</h2><a class="btn btn-primary" href="{% url 'payment_create' %}">Record Payment</a></div>
+<form class="searchbar"><input class="form-control" name="q" value="{{ query }}" placeholder="Search reference or reg number"><button class="btn btn-dark">Search</button></form>
+<div class="panel"><table class="table table-hover"><thead><tr><th>Student</th><th>Reference</th><th>Amount</th><th>Status</th><th></th></tr></thead><tbody>{% for payment in page %}<tr><td>{{ payment.student.reg_number }}</td><td>{{ payment.reference }}</td><td>{{ payment.amount }}</td><td>{{ payment.status }}</td><td><a href="{% url 'payment_update' payment.pk %}">Edit</a></td></tr>{% empty %}<tr><td colspan="5">No payments found.</td></tr>{% endfor %}</tbody></table></div>
+{% include "pagination.html" %}
+{% endblock %}

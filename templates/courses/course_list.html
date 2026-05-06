@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-header"><h2>Courses</h2><a class="btn btn-primary" href="{% url 'course_create' %}">Add Course</a></div>
+<form class="searchbar"><input class="form-control" name="q" value="{{ query }}" placeholder="Search courses"><button class="btn btn-dark">Search</button></form>
+<div class="panel"><table class="table table-hover"><thead><tr><th>Code</th><th>Title</th><th>Units</th><th>Department</th><th>Time</th><th></th></tr></thead><tbody>{% for course in page %}<tr><td>{{ course.code }}</td><td>{{ course.title }}</td><td>{{ course.credit_units }}</td><td>{{ course.department }}</td><td>{{ course.get_weekday_display }} {{ course.start_time }}-{{ course.end_time }}</td><td><a href="{% url 'course_update' course.pk %}">Edit</a> | <a href="{% url 'course_delete' course.pk %}">Delete</a></td></tr>{% empty %}<tr><td colspan="6">No courses found.</td></tr>{% endfor %}</tbody></table></div>
+{% include "pagination.html" %}
+{% endblock %}

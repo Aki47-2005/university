@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-header"><h2>Notifications</h2></div>
+<div class="panel"><table class="table">{% for notification in notifications %}<tr class="{% if not notification.is_read %}table-primary{% endif %}"><td><strong>{{ notification.title }}</strong><br>{{ notification.message }}</td><td>{{ notification.created_at }}</td><td>{% if not notification.is_read %}<a href="{% url 'notification_mark_read' notification.pk %}">Mark read</a>{% else %}Read{% endif %}</td></tr>{% empty %}<tr><td>No notifications.</td></tr>{% endfor %}</table></div>
+{% endblock %}

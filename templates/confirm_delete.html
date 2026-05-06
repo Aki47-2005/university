@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="panel">
+  <h2>{{ title }}</h2>
+  <p>Delete <strong>{{ object }}</strong>?</p>
+  <form method="post">{% csrf_token %}<button class="btn btn-danger">Delete</button><a class="btn btn-light" href="{{ request.META.HTTP_REFERER|default:'/' }}">Cancel</a></form>
+</div>
+{% endblock %}
